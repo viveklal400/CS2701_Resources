@@ -25,12 +25,13 @@ public class UserService {
 		return (List<User>) userRepository.findAll();
 	}
 
-	public void addUser(User newUser) {
-		userRepository.save(newUser);
+	public User addUser(User newUser) {
+		return userRepository.save(newUser);
 	}
 	
-	public Optional<User> findByID(Long id) {
-		 return userRepository.findById(id);
+	public User findByID(Long id) {
+		return userRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 	}
 	
 	public void deleteUser(Long id) {
